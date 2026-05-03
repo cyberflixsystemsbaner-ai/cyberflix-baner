@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>PC Builder — Cyberflix Systems Baner | Custom PC Configurator Pune</title>
+<meta name="description" content="Build your custom PC online — choose components, see real-time pricing, get instant WhatsApp quote from Cyberflix Systems Baner, Pune"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0d14;--bg2:#0d1220;--bg3:#101828;
+  --cyan:#00d4ff;--cyan2:#00b4df;--cyan3:#008ab0;
+  --white:#ffffff;--muted:#3a5060;--muted2:#5a8090;
+  --gold:#ffcc00;--green:#00ff44;--red:#ff4444;
+  --border:#0d2535;--card:#0d1828;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;font-size:15px;min-height:100vh;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--cyan3);border-radius:2px}
+
+/* BG */
+body::before{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:rgba(10,13,20,0.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,212,255,0.2)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nl-cyber{font-family:'Orbitron',monospace;font-size:18px;font-weight:900;color:var(--cyan)}
+.nl-flix{font-family:'Orbitron',monospace;font-size:18px;font-weight:900;color:var(--white)}
+.nav-title{font-family:'Orbitron',monospace;font-size:14px;color:var(--cyan);letter-spacing:2px}
+.nav-back{font-size:13px;color:var(--muted2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.nav-back:hover{color:var(--cyan)}
+
+/* HERO */
+.builder-hero{padding:40px 32px 20px;position:relative;z-index:1;text-align:center}
+.builder-hero h1{font-family:'Orbitron',monospace;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:900;margin-bottom:10px}
+.builder-hero h1 span{color:var(--cyan);text-shadow:0 0 30px rgba(0,212,255,0.5)}
+.builder-hero p{font-size:15px;color:var(--muted2);max-width:600px;margin:0 auto 20px;line-height:1.8;font-weight:400}
+.use-case-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+.uc-tab{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;padding:8px 18px;border-radius:20px;border:1px solid rgba(0,212,255,0.2);background:transparent;color:var(--muted2);cursor:pointer;transition:all .2s}
+.uc-tab.active,.uc-tab:hover{background:rgba(0,212,255,0.1);border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 12px rgba(0,212,255,0.15)}
+
+/* MAIN LAYOUT */
+.builder-main{display:grid;grid-template-columns:1fr 360px;gap:20px;padding:20px 32px 40px;position:relative;z-index:1;max-width:1400px;margin:0 auto}
+
+/* COMPONENTS PANEL */
+.components-panel{display:flex;flex-direction:column;gap:12px}
+.comp-section{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s}
+.comp-section.selected{border-color:rgba(0,212,255,0.35);box-shadow:0 0 20px rgba(0,212,255,0.08)}
+.comp-header{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;transition:background .2s;user-select:none}
+.comp-header:hover{background:rgba(0,212,255,0.04)}
+.comp-icon{font-size:22px;width:36px;text-align:center}
+.comp-info{flex:1}
+.comp-name{font-family:'Orbitron',monospace;font-size:11px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase}
+.comp-selected{font-size:14px;font-weight:500;color:var(--white);margin-top:3px;line-height:1.4}
+.comp-selected.placeholder{color:var(--muted2)}
+.comp-price-tag{font-family:'Orbitron',monospace;font-size:13px;color:var(--cyan);font-weight:700}
+.comp-chevron{color:var(--muted2);font-size:12px;transition:transform .3s}
+.comp-chevron.open{transform:rotate(180deg)}
+
+/* OPTIONS PANEL */
+.comp-options{display:none;border-top:1px solid var(--border);padding:12px}
+.comp-options.open{display:block}
+.option-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.option-card{background:rgba(255,255,255,0.03);border:1px solid rgba(0,212,255,0.1);border-radius:8px;padding:12px;cursor:pointer;transition:all .2s;position:relative}
+.option-card:hover{border-color:rgba(0,212,255,0.3);background:rgba(0,212,255,0.05)}
+.option-card.selected{border-color:var(--cyan);background:rgba(0,212,255,0.08);box-shadow:0 0 12px rgba(0,212,255,0.1)}
+.option-card.selected::after{content:'✓';position:absolute;top:8px;right:10px;color:var(--cyan);font-size:14px;font-weight:700}
+.opt-brand{font-size:10px;color:var(--cyan);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.opt-name{font-size:13px;font-weight:600;color:var(--white);margin-bottom:4px;line-height:1.4}
+.opt-spec{font-size:12px;color:var(--muted2);line-height:1.6;font-weight:400}
+.opt-price{font-family:'Orbitron',monospace;font-size:13px;color:var(--green);margin-top:6px;font-weight:700}
+.opt-badge{display:inline-block;font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(255,204,0,0.15);border:1px solid rgba(255,204,0,0.3);color:var(--gold);margin-left:6px;vertical-align:middle}
+
+/* SUMMARY PANEL */
+.summary-panel{position:sticky;top:80px;height:fit-content}
+.summary-card{background:var(--card);border:1px solid rgba(0,212,255,0.2);border-radius:12px;overflow:hidden}
+.summary-header{background:rgba(0,212,255,0.08);padding:16px 20px;border-bottom:1px solid rgba(0,212,255,0.15)}
+.summary-header h3{font-family:'Orbitron',monospace;font-size:13px;color:var(--cyan);letter-spacing:2px}
+.summary-use-case{font-size:12px;color:var(--muted2);margin-top:4px}
+.si-cat{font-size:10px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;font-weight:500}.si-name{font-size:13px;color:var(--white);margin-top:3px;line-height:1.4;font-weight:400}.summary-items{padding:14px 20px;max-height:340px;overflow-y:auto}
+.si-cat{font-size:10px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;font-weight:500}.si-name{font-size:13px;color:var(--white);margin-top:3px;line-height:1.4;font-weight:400}.summary-item{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.si-cat{font-size:10px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;font-weight:500}.si-name{font-size:13px;color:var(--white);margin-top:3px;line-height:1.4;font-weight:400}.summary-item:last-child{border-bottom:none}
+.si-left{flex:1}
+.si-cat{font-size:10px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase}
+.si-name{font-size:13px;color:var(--white);margin-top:2px;line-height:1.3}
+.si-price{font-family:'Orbitron',monospace;font-size:12px;color:var(--cyan);font-weight:700;white-space:nowrap;margin-left:10px;margin-top:4px}
+.si-empty{font-size:12px;color:rgba(90,128,144,0.5);font-style:italic}
+.summary-total{padding:16px 20px;border-top:1px solid rgba(0,212,255,0.15);background:rgba(0,212,255,0.04)}
+.total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.total-label{font-size:13px;color:var(--muted2)}
+.total-amount{font-family:'Orbitron',monospace;font-size:22px;font-weight:700;color:var(--cyan);text-shadow:0 0 15px rgba(0,212,255,0.4)}
+.gst-note{font-size:11px;color:var(--muted2);margin-bottom:14px}
+.compat-bar{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;margin-bottom:14px;font-size:12px}
+.compat-ok{background:rgba(0,255,68,0.08);border:1px solid rgba(0,255,68,0.2);color:var(--green)}
+.compat-warn{background:rgba(255,204,0,0.08);border:1px solid rgba(255,204,0,0.2);color:var(--gold)}
+.compat-err{background:rgba(255,68,68,0.08);border:1px solid rgba(255,68,68,0.2);color:var(--red)}
+.wa-quote-btn{display:block;width:100%;padding:14px;background:#25d366;color:#fff;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:8px;cursor:pointer;text-decoration:none;text-align:center;transition:all .2s;box-shadow:0 4px 20px rgba(37,211,102,0.35);margin-bottom:8px}
+.wa-quote-btn:hover{background:#20b858;box-shadow:0 6px 28px rgba(37,211,102,0.5);transform:translateY(-1px)}
+.call-btn{display:block;width:100%;padding:11px;background:transparent;color:var(--cyan);font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:1px solid rgba(0,212,255,0.3);border-radius:8px;cursor:pointer;text-decoration:none;text-align:center;transition:all .2s}
+.call-btn:hover{background:rgba(0,212,255,0.08);border-color:var(--cyan)}
+.reset-btn{display:block;width:100%;padding:8px;background:transparent;color:var(--muted2);font-size:12px;border:none;cursor:pointer;margin-top:8px;transition:color .2s}
+.reset-btn:hover{color:var(--red)}
+
+/* PROGRESS BAR */
+.progress-wrap{padding:10px 20px 0;background:var(--card);border-bottom:1px solid var(--border)}
+.progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted2);margin-bottom:6px}
+.progress-track{height:4px;background:rgba(255,255,255,0.05);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--cyan3),var(--cyan));border-radius:2px;transition:width .4s ease}
+
+/* PRESETS */
+.presets-bar{display:flex;gap:8px;flex-wrap:wrap;padding:14px 20px;border-bottom:1px solid var(--border);background:rgba(0,212,255,0.03)}
+.preset-btn{font-size:11px;font-weight:700;padding:5px 12px;border-radius:16px;border:1px solid rgba(0,212,255,0.2);background:transparent;color:var(--muted2);cursor:pointer;transition:all .2s;letter-spacing:.5px}
+.preset-btn:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,212,255,0.07)}
+
+/* FOOTER CTA */
+.builder-footer{padding:32px;text-align:center;position:relative;z-index:1;border-top:1px solid var(--border);background:rgba(0,212,255,0.02)}
+.builder-footer h3{font-family:'Orbitron',monospace;font-size:16px;color:var(--white);margin-bottom:8px}
+.builder-footer p{font-size:14px;color:var(--muted2);margin-bottom:20px}
+.footer-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-wa{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#fff;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;border-radius:8px;text-decoration:none;transition:all .2s;box-shadow:0 4px 20px rgba(37,211,102,0.3)}
+.btn-wa:hover{background:#20b858;transform:translateY(-2px)}
+.btn-call{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--cyan);font-family:'Inter',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;border-radius:8px;border:1px solid rgba(0,212,255,0.35);text-decoration:none;transition:all .2s}
+.btn-call:hover{background:rgba(0,212,255,0.08)}
+
+/* MOBILE */
+@media(max-width:900px){
+  .builder-main{grid-template-columns:1fr}
+  .summary-panel{position:static}
+  nav{padding:12px 18px}
+  .builder-hero{padding:30px 18px 16px}
+  .builder-main{padding:16px 18px 32px}
+  .option-grid{grid-template-columns:1fr}
+  .builder-footer{padding:24px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 160 160" fill="none">
+      <rect width="160" height="160" rx="8" fill="#0d1220"/>
+      <polygon points="80,22 130,51 130,109 80,138 30,109 30,51" stroke="#1a9aaa" stroke-width="2" fill="none"/>
+      <circle cx="80" cy="22" r="5" fill="#00c8f0"/><circle cx="130" cy="51" r="5" fill="#00c8f0"/>
+      <circle cx="130" cy="109" r="5" fill="#00c8f0"/><circle cx="80" cy="138" r="5" fill="#00c8f0"/>
+      <circle cx="30" cy="109" r="5" fill="#00c8f0"/><circle cx="30" cy="51" r="5" fill="#00c8f0"/>
+      <path d="M 110 54 A 38 38 0 1 0 110 106" stroke="#fff" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <polygon points="108,72 108,88 122,80" fill="#00c8f0"/>
+    </svg>
+    <div><div><span class="nl-cyber">Cyber</span><span class="nl-flix">flix</span></div>
+    <div style="font-size:9px;color:var(--muted2);letter-spacing:2px">SYSTEMS LLP</div></div>
+  </a>
+  <div class="nav-title">⚙️ PC BUILDER</div>
+  <a href="index.html" class="nav-back">← Back to Store</a>
+</nav>
+
+<!-- HERO -->
+<div class="builder-hero">
+  <h1>Build Your <span>Dream PC</span></h1>
+  <p>Pick your components, see real-time pricing and compatibility — then get an instant WhatsApp quote from our team in Baner.</p>
+  <div class="use-case-tabs">
+    <button class="uc-tab active" onclick="loadPreset('gaming',this)">🎮 Gaming</button>
+    <button class="uc-tab" onclick="loadPreset('trading',this)">📈 Trading</button>
+    <button class="uc-tab" onclick="loadPreset('office',this)">🏢 Office</button>
+    <button class="uc-tab" onclick="loadPreset('creator',this)">🎨 Creator</button>
+    <button class="uc-tab" onclick="loadPreset('workstation',this)">⚡ Workstation</button>
+    <button class="uc-tab" onclick="loadPreset('custom',this)">🔧 Custom</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="builder-main">
+  <!-- LEFT — COMPONENTS -->
+  <div class="components-panel" id="componentsPanel">
+
+    <!-- CPU -->
+    <div class="comp-section" id="section-cpu">
+      <div class="comp-header" onclick="toggleSection('cpu')">
+        <div class="comp-icon">🔲</div>
+        <div class="comp-info">
+          <div class="comp-name">Processor (CPU)</div>
+          <div class="comp-selected placeholder" id="sel-cpu-name">Select a processor</div>
+        </div>
+        <div class="comp-price-tag" id="sel-cpu-price"></div>
+        <div class="comp-chevron" id="chev-cpu">▼</div>
+      </div>
+      <div class="comp-options" id="opts-cpu">
+        <div class="option-grid">
+          <div class="option-card" onclick="select('cpu','Intel Core i5-13400F','i5-13400F · 10 Core · 4.6GHz · No iGPU',8500,'Intel')">
+            <div class="opt-brand">Intel</div>
+            <div class="opt-name">Core i5-13400F</div>
+            <div class="opt-spec">10 Cores · 4.6GHz Boost · 65W TDP</div>
+            <div class="opt-price">₹8,500</div>
+          </div>
+          <div class="option-card" onclick="select('cpu','Intel Core i5-14600K','i5-14600K · 14 Core · 5.3GHz',14500,'Intel')">
+            <div class="opt-brand">Intel</div>
+            <div class="opt-name">Core i5-14600K</div>
+            <div class="opt-spec">14 Cores · 5.3GHz Boost · 125W</div>
+            <div class="opt-price">₹14,500</div>
+          </div>
+          <div class="option-card" onclick="select('cpu','Intel Core i7-14700K','i7-14700K · 20 Core · 5.6GHz',22000,'Intel')">
+            <div class="opt-brand">Intel</div>
+            <div class="opt-name">Core i7-14700K <span class="opt-badge">Popular</span></div>
+            <div class="opt-spec">20 Cores · 5.6GHz Boost · 125W</div>
+            <div class="opt-price">₹22,000</div>
+          </div>
+          <div class="option-card" onclick="select('cpu','Intel Core i9-14900K','i9-14900K · 24 Core · 6.0GHz',35000,'Intel')">
+            <div class="opt-brand">Intel</div>
+            <div class="opt-name">Core i9-14900K</div>
+            <div class="opt-spec">24 Cores · 6.0GHz Boost · 125W</div>
+            <div class="opt-price">₹35,000</div>
+          </div>
+          <div class="option-card" onclick="select('cpu','AMD Ryzen 5 7600X','R5 7600X · 6 Core · 5.3GHz · AM5',15000,'AMD')">
+            <div class="opt-brand">AMD</div>
+            <div class="opt-name">Ryzen 5 7600X</div>
+            <div class="opt-spec">6 Cores · 5.3GHz · AM5 · 105W</div>
+            <div class="opt-price">₹15,000</div>
+          </div>
+          <div class="option-card" onclick="select('cpu','AMD Ryzen 7 7800X3D','R7 7800X3D · 8 Core · 5.0GHz · 3D V-Cache',32000,'AMD')">
+            <div class="opt-brand">AMD</div>
+            <div class="opt-name">Ryzen 7 7800X3D <span class="opt-badge">Best Gaming</span></div>
+            <div class="opt-spec">8 Cores · 5.0GHz · 3D V-Cache</div>
+            <div class="opt-price">₹32,000</div>
+          </div>
+          <div class="option-card" onclick="select('cpu','AMD Ryzen 9 7950X','R9 7950X · 16 Core · 5.7GHz',45000,'AMD')">
+            <div class="opt-brand">AMD</div>
+            <div class="opt-name">Ryzen 9 7950X</div>
+            <div class="opt-spec">16 Cores · 5.7GHz · 170W</div>
+            <div class="opt-price">₹45,000</div>
+          </div>
+          <div class="option-card" onclick="select('cpu','AMD Ryzen 9 9950X3D','R9 9950X3D · 16 Core · 5.7GHz · AI',65000,'AMD')">
+            <div class="opt-brand">AMD</div>
+            <div class="opt-name">Ryzen 9 9950X3D <span class="opt-badge">AI Beast</span></div>
+            <div class="opt-spec">16 Cores · 5.7GHz · 3D V-Cache · AI</div>
+            <div class="opt-price">₹65,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOTHERBOARD -->
+    <div class="comp-section" id="section-mb">
+      <div class="comp-header" onclick="toggleSection('mb')">
+        <div class="comp-icon">🖱️</div>
+        <div class="comp-info">
+          <div class="comp-name">Motherboard</div>
+          <div class="comp-selected placeholder" id="sel-mb-name">Select a motherboard</div>
+        </div>
+        <div class="comp-price-tag" id="sel-mb-price"></div>
+        <div class="comp-chevron" id="chev-mb">▼</div>
+      </div>
+      <div class="comp-options" id="opts-mb">
+        <div class="option-grid">
+          <div class="option-card" onclick="select('mb','MSI PRO B550M-VC WiFi','B550M · AM4 · DDR4 · WiFi · mATX',7500,'MSI')">
+            <div class="opt-brand">MSI</div>
+            <div class="opt-name">PRO B550M-VC WiFi</div>
+            <div class="opt-spec">B550 · AM4 · DDR4 · WiFi · mATX</div>
+            <div class="opt-price">₹7,500</div>
+          </div>
+          <div class="option-card" onclick="select('mb','ASUS TUF Gaming B660M-Plus','B660M · LGA1700 · DDR5 · mATX',12000,'ASUS')">
+            <div class="opt-brand">ASUS</div>
+            <div class="opt-name">TUF Gaming B660M-Plus</div>
+            <div class="opt-spec">B660 · LGA1700 · DDR5 · mATX</div>
+            <div class="opt-price">₹12,000</div>
+          </div>
+          <div class="option-card" onclick="select('mb','MSI MAG Z790 Tomahawk WiFi','Z790 · LGA1700 · DDR5 · WiFi 6E · ATX',28000,'MSI')">
+            <div class="opt-brand">MSI</div>
+            <div class="opt-name">MAG Z790 Tomahawk WiFi <span class="opt-badge">Popular</span></div>
+            <div class="opt-spec">Z790 · LGA1700 · DDR5 · WiFi 6E</div>
+            <div class="opt-price">₹28,000</div>
+          </div>
+          <div class="option-card" onclick="select('mb','ASUS ROG STRIX Z790-E WiFi','Z790-E · LGA1700 · DDR5 · PCIe 5.0 · WiFi 6E',42000,'ASUS')">
+            <div class="opt-brand">ASUS ROG</div>
+            <div class="opt-name">ROG STRIX Z790-E WiFi</div>
+            <div class="opt-spec">Z790 · LGA1700 · DDR5 · PCIe 5.0</div>
+            <div class="opt-price">₹42,000</div>
+          </div>
+          <div class="option-card" onclick="select('mb','Gigabyte AORUS Elite AX X670','X670 · AM5 · DDR5 · WiFi 6E · ATX',26000,'Gigabyte')">
+            <div class="opt-brand">Gigabyte</div>
+            <div class="opt-name">AORUS Elite AX X670</div>
+            <div class="opt-spec">X670 · AM5 · DDR5 · WiFi 6E</div>
+            <div class="opt-price">₹26,000</div>
+          </div>
+          <div class="option-card" onclick="select('mb','ASUS ROG Crosshair X670E Hero','X670E · AM5 · DDR5 · PCIe 5.0 · WiFi 6E',55000,'ASUS')">
+            <div class="opt-brand">ASUS ROG</div>
+            <div class="opt-name">Crosshair X670E Hero</div>
+            <div class="opt-spec">X670E · AM5 · DDR5 · PCIe 5.0</div>
+            <div class="opt-price">₹55,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GPU -->
+    <div class="comp-section" id="section-gpu">
+      <div class="comp-header" onclick="toggleSection('gpu')">
+        <div class="comp-icon">🎮</div>
+        <div class="comp-info">
+          <div class="comp-name">Graphics Card (GPU)</div>
+          <div class="comp-selected placeholder" id="sel-gpu-name">Select a graphics card</div>
+        </div>
+        <div class="comp-price-tag" id="sel-gpu-price"></div>
+        <div class="comp-chevron" id="chev-gpu">▼</div>
+      </div>
+      <div class="comp-options" id="opts-gpu">
+        <div class="option-grid">
+          <div class="option-card" onclick="select('gpu','NVIDIA GeForce RTX 4060 8GB','RTX 4060 · 8GB GDDR6 · 1080p/1440p',22000,'NVIDIA')">
+            <div class="opt-brand">NVIDIA</div>
+            <div class="opt-name">RTX 4060 8GB</div>
+            <div class="opt-spec">8GB GDDR6 · 1080p/1440p Gaming</div>
+            <div class="opt-price">₹22,000</div>
+          </div>
+          <div class="option-card" onclick="select('gpu','NVIDIA GeForce RTX 4060 Ti 16GB','RTX 4060 Ti · 16GB GDDR6 · 1440p',32000,'NVIDIA')">
+            <div class="opt-brand">NVIDIA</div>
+            <div class="opt-name">RTX 4060 Ti 16GB <span class="opt-badge">Value Pick</span></div>
+            <div class="opt-spec">16GB GDDR6 · 1440p Ultra</div>
+            <div class="opt-price">₹32,000</div>
+          </div>
+          <div class="option-card" onclick="select('gpu','NVIDIA GeForce RTX 4070 12GB','RTX 4070 · 12GB GDDR6X · 1440p/4K',40000,'NVIDIA')">
+            <div class="opt-brand">NVIDIA</div>
+            <div class="opt-name">RTX 4070 12GB</div>
+            <div class="opt-spec">12GB GDDR6X · 1440p/4K Gaming</div>
+            <div class="opt-price">₹40,000</div>
+          </div>
+          <div class="option-card" onclick="select('gpu','NVIDIA GeForce RTX 4070 Super 12GB','RTX 4070 Super · 12GB · Best 1440p',48000,'NVIDIA')">
+            <div class="opt-brand">NVIDIA</div>
+            <div class="opt-name">RTX 4070 Super <span class="opt-badge">Most Built</span></div>
+            <div class="opt-spec">12GB GDDR6X · Best 1440p Value</div>
+            <div class="opt-price">₹48,000</div>
+          </div>
+          <div class="option-card" onclick="select('gpu','NVIDIA GeForce RTX 4080 Super 16GB','RTX 4080 Super · 16GB GDDR6X · 4K',78000,'NVIDIA')">
+            <div class="opt-brand">NVIDIA</div>
+            <div class="opt-name">RTX 4080 Super 16GB</div>
+            <div class="opt-spec">16GB GDDR6X · 4K Gaming</div>
+            <div class="opt-price">₹78,000</div>
+          </div>
+          <div class="option-card" onclick="select('gpu','NVIDIA GeForce RTX 5070 12GB','RTX 5070 · 12GB GDDR7 · DLSS 4 · Latest',65000,'NVIDIA')">
+            <div class="opt-brand">NVIDIA</div>
+            <div class="opt-name">RTX 5070 12GB <span class="opt-badge">New Gen</span></div>
+            <div class="opt-spec">12GB GDDR7 · DLSS 4 · Latest Gen</div>
+            <div class="opt-price">₹65,000</div>
+          </div>
+          <div class="option-card" onclick="select('gpu','NVIDIA GeForce RTX 5080 16GB','RTX 5080 · 16GB GDDR7 · DLSS 4',95000,'NVIDIA')">
+            <div class="opt-brand">NVIDIA</div>
+            <div class="opt-name">RTX 5080 16GB</div>
+            <div class="opt-spec">16GB GDDR7 · 4K 240Hz · DLSS 4</div>
+            <div class="opt-price">₹95,000</div>
+          </div>
+          <div class="option-card" onclick="select('gpu','NVIDIA GeForce RTX 5090 32GB','RTX 5090 · 32GB GDDR7 · Flagship',1,80000,'NVIDIA')">
+            <div class="opt-brand">NVIDIA</div>
+            <div class="opt-name">RTX 5090 32GB <span class="opt-badge">Flagship</span></div>
+            <div class="opt-spec">32GB GDDR7 · 8K Ready · AI Beast</div>
+            <div class="opt-price">₹1,80,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RAM -->
+    <div class="comp-section" id="section-ram">
+      <div class="comp-header" onclick="toggleSection('ram')">
+        <div class="comp-icon">💾</div>
+        <div class="comp-info">
+          <div class="comp-name">RAM (Memory)</div>
+          <div class="comp-selected placeholder" id="sel-ram-name">Select RAM</div>
+        </div>
+        <div class="comp-price-tag" id="sel-ram-price"></div>
+        <div class="comp-chevron" id="chev-ram">▼</div>
+      </div>
+      <div class="comp-options" id="opts-ram">
+        <div class="option-grid">
+          <div class="option-card" onclick="select('ram','Corsair 16GB DDR4 3200MHz','16GB (2×8) DDR4 · 3200MHz · CL16',3200,'Corsair')">
+            <div class="opt-brand">Corsair</div>
+            <div class="opt-name">16GB DDR4 3200MHz</div>
+            <div class="opt-spec">2×8GB · 3200MHz · CL16 · RGB</div>
+            <div class="opt-price">₹3,200</div>
+          </div>
+          <div class="option-card" onclick="select('ram','Corsair 32GB DDR4 3600MHz','32GB (2×16) DDR4 · 3600MHz · CL18',5500,'Corsair')">
+            <div class="opt-brand">Corsair</div>
+            <div class="opt-name">32GB DDR4 3600MHz</div>
+            <div class="opt-spec">2×16GB · 3600MHz · CL18 · RGB</div>
+            <div class="opt-price">₹5,500</div>
+          </div>
+          <div class="option-card" onclick="select('ram','Corsair 32GB DDR5 5600MHz','32GB (2×16) DDR5 · 5600MHz · CL36',8500,'Corsair')">
+            <div class="opt-brand">Corsair</div>
+            <div class="opt-name">32GB DDR5 5600MHz <span class="opt-badge">Popular</span></div>
+            <div class="opt-spec">2×16GB · DDR5 · 5600MHz · RGB</div>
+            <div class="opt-price">₹8,500</div>
+          </div>
+          <div class="option-card" onclick="select('ram','Corsair 64GB DDR5 6000MHz','64GB (2×32) DDR5 · 6000MHz · CL30',16000,'Corsair')">
+            <div class="opt-brand">Corsair</div>
+            <div class="opt-name">64GB DDR5 6000MHz</div>
+            <div class="opt-spec">2×32GB · DDR5 · 6000MHz · XMP 3.0</div>
+            <div class="opt-price">₹16,000</div>
+          </div>
+          <div class="option-card" onclick="select('ram','Corsair 128GB DDR5 6000MHz','128GB (4×32) DDR5 · 6000MHz',35000,'Corsair')">
+            <div class="opt-brand">Corsair</div>
+            <div class="opt-name">128GB DDR5 6000MHz</div>
+            <div class="opt-spec">4×32GB · DDR5 · Workstation Grade</div>
+            <div class="opt-price">₹35,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORAGE -->
+    <div class="comp-section" id="section-storage">
+      <div class="comp-header" onclick="toggleSection('storage')">
+        <div class="comp-icon">💿</div>
+        <div class="comp-info">
+          <div class="comp-name">Storage (SSD/HDD)</div>
+          <div class="comp-selected placeholder" id="sel-storage-name">Select storage</div>
+        </div>
+        <div class="comp-price-tag" id="sel-storage-price"></div>
+        <div class="comp-chevron" id="chev-storage">▼</div>
+      </div>
+      <div class="comp-options" id="opts-storage">
+        <div class="option-grid">
+          <div class="option-card" onclick="select('storage','Samsung 512GB 980 NVMe','512GB · PCIe Gen3 · 3500MB/s',3500,'Samsung')">
+            <div class="opt-brand">Samsung</div>
+            <div class="opt-name">512GB 980 NVMe</div>
+            <div class="opt-spec">PCIe Gen3 · 3500MB/s · M.2</div>
+            <div class="opt-price">₹3,500</div>
+          </div>
+          <div class="option-card" onclick="select('storage','Samsung 1TB 980 Pro NVMe','1TB · PCIe Gen4 · 7000MB/s',7500,'Samsung')">
+            <div class="opt-brand">Samsung</div>
+            <div class="opt-name">1TB 980 Pro NVMe <span class="opt-badge">Popular</span></div>
+            <div class="opt-spec">PCIe Gen4 · 7000MB/s · M.2</div>
+            <div class="opt-price">₹7,500</div>
+          </div>
+          <div class="option-card" onclick="select('storage','Samsung 2TB 990 Pro NVMe','2TB · PCIe Gen4 · 7450MB/s',14000,'Samsung')">
+            <div class="opt-brand">Samsung</div>
+            <div class="opt-name">2TB 990 Pro NVMe</div>
+            <div class="opt-spec">PCIe Gen4 · 7450MB/s · M.2</div>
+            <div class="opt-price">₹14,000</div>
+          </div>
+          <div class="option-card" onclick="select('storage','Samsung 2TB 990 Pro + Seagate 2TB HDD','2TB NVMe + 2TB HDD Combo',18000,'Samsung+Seagate')">
+            <div class="opt-brand">Samsung + Seagate</div>
+            <div class="opt-name">2TB NVMe + 2TB HDD Combo <span class="opt-badge">Best Value</span></div>
+            <div class="opt-spec">7450MB/s NVMe + 7200RPM Storage</div>
+            <div class="opt-price">₹18,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COOLING -->
+    <div class="comp-section" id="section-cooling">
+      <div class="comp-header" onclick="toggleSection('cooling')">
+        <div class="comp-icon">❄️</div>
+        <div class="comp-info">
+          <div class="comp-name">CPU Cooler</div>
+          <div class="comp-selected placeholder" id="sel-cooling-name">Select cooling</div>
+        </div>
+        <div class="comp-price-tag" id="sel-cooling-price"></div>
+        <div class="comp-chevron" id="chev-cooling">▼</div>
+      </div>
+      <div class="comp-options" id="opts-cooling">
+        <div class="option-grid">
+          <div class="option-card" onclick="select('cooling','DeepCool AK400 Air Cooler','AK400 · 120mm · 220W TDP · Silent',2200,'DeepCool')">
+            <div class="opt-brand">DeepCool</div>
+            <div class="opt-name">AK400 Air Cooler</div>
+            <div class="opt-spec">120mm Fan · 220W TDP · Silent</div>
+            <div class="opt-price">₹2,200</div>
+          </div>
+          <div class="option-card" onclick="select('cooling','DeepCool AK620 Dual Tower','AK620 · Dual Tower · 260W TDP',4200,'DeepCool')">
+            <div class="opt-brand">DeepCool</div>
+            <div class="opt-name">AK620 Dual Tower <span class="opt-badge">Popular</span></div>
+            <div class="opt-spec">2×120mm · 260W TDP · Premium</div>
+            <div class="opt-price">₹4,200</div>
+          </div>
+          <div class="option-card" onclick="select('cooling','DeepCool LT240 AIO 240mm','LT240 · 240mm AIO · ARGB',6500,'DeepCool')">
+            <div class="opt-brand">DeepCool</div>
+            <div class="opt-name">LT240 AIO 240mm</div>
+            <div class="opt-spec">240mm Radiator · ARGB · LCD</div>
+            <div class="opt-price">₹6,500</div>
+          </div>
+          <div class="option-card" onclick="select('cooling','DeepCool LM360 AIO 360mm','LM360 · 360mm AIO · ARGB · LCD Display',8500,'DeepCool')">
+            <div class="opt-brand">DeepCool</div>
+            <div class="opt-name">LM360 AIO 360mm <span class="opt-badge">Best Cooling</span></div>
+            <div class="opt-spec">360mm · ARGB · LCD Display</div>
+            <div class="opt-price">₹8,500</div>
+          </div>
+          <div class="option-card" onclick="select('cooling','ASUS ROG Strix LC 360 ARGB','ROG LC 360 · 360mm AIO · ROG Ecosystem',12000,'ASUS ROG')">
+            <div class="opt-brand">ASUS ROG</div>
+            <div class="opt-name">Strix LC 360 ARGB</div>
+            <div class="opt-spec">360mm · ARGB · ROG Ecosystem</div>
+            <div class="opt-price">₹12,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CABINET -->
+    <div class="comp-section" id="section-cabinet">
+      <div class="comp-header" onclick="toggleSection('cabinet')">
+        <div class="comp-icon">🗄️</div>
+        <div class="comp-info">
+          <div class="comp-name">Cabinet (Case)</div>
+          <div class="comp-selected placeholder" id="sel-cabinet-name">Select a cabinet</div>
+        </div>
+        <div class="comp-price-tag" id="sel-cabinet-price"></div>
+        <div class="comp-chevron" id="chev-cabinet">▼</div>
+      </div>
+      <div class="comp-options" id="opts-cabinet">
+        <div class="option-grid">
+          <div class="option-card" onclick="select('cabinet','Ant Esports ICE-200TG ARGB','mATX · Tempered Glass · ARGB · 3 Fans',3500,'Ant Esports')">
+            <div class="opt-brand">Ant Esports</div>
+            <div class="opt-name">ICE-200TG ARGB</div>
+            <div class="opt-spec">mATX · Tempered Glass · 3 ARGB Fans</div>
+            <div class="opt-price">₹3,500</div>
+          </div>
+          <div class="option-card" onclick="select('cabinet','Ant Esports 690 Air ARGB','ATX Mid Tower · Tempered Glass · ARGB · 4 Fans',5500,'Ant Esports')">
+            <div class="opt-brand">Ant Esports</div>
+            <div class="opt-name">690 Air ARGB <span class="opt-badge">Popular</span></div>
+            <div class="opt-spec">ATX Mid Tower · 4 ARGB Fans · Mesh</div>
+            <div class="opt-price">₹5,500</div>
+          </div>
+          <div class="option-card" onclick="select('cabinet','ASUS TUF Gaming GT302 ARGB','ATX Mid Tower · TUF Ecosystem · 3 Fans',8500,'ASUS')">
+            <div class="opt-brand">ASUS</div>
+            <div class="opt-name">TUF Gaming GT302 ARGB</div>
+            <div class="opt-spec">ATX Mid Tower · TUF Ecosystem</div>
+            <div class="opt-price">₹8,500</div>
+          </div>
+          <div class="option-card" onclick="select('cabinet','Lian Li LANCOOL 216 RGB','ATX Full Tower · Dual Chamber · RGB',12000,'Lian Li')">
+            <div class="opt-brand">Lian Li</div>
+            <div class="opt-name">LANCOOL 216 RGB</div>
+            <div class="opt-spec">ATX Full Tower · Premium Airflow</div>
+            <div class="opt-price">₹12,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PSU -->
+    <div class="comp-section" id="section-psu">
+      <div class="comp-header" onclick="toggleSection('psu')">
+        <div class="comp-icon">⚡</div>
+        <div class="comp-info">
+          <div class="comp-name">Power Supply (PSU)</div>
+          <div class="comp-selected placeholder" id="sel-psu-name">Select a PSU</div>
+        </div>
+        <div class="comp-price-tag" id="sel-psu-price"></div>
+        <div class="comp-chevron" id="chev-psu">▼</div>
+      </div>
+      <div class="comp-options" id="opts-psu">
+        <div class="option-grid">
+          <div class="option-card" onclick="select('psu','Corsair CV550 550W 80+ Bronze','550W · 80+ Bronze · ATX · Non-Modular',3500,'Corsair')">
+            <div class="opt-brand">Corsair</div>
+            <div class="opt-name">CV550 550W 80+ Bronze</div>
+            <div class="opt-spec">550W · 80+ Bronze · Budget Builds</div>
+            <div class="opt-price">₹3,500</div>
+          </div>
+          <div class="option-card" onclick="select('psu','Corsair RM750e 750W 80+ Gold','750W · 80+ Gold · Semi-Modular · ATX3.0',7500,'Corsair')">
+            <div class="opt-brand">Corsair</div>
+            <div class="opt-name">RM750e 750W 80+ Gold <span class="opt-badge">Popular</span></div>
+            <div class="opt-spec">750W · 80+ Gold · Semi-Modular</div>
+            <div class="opt-price">₹7,500</div>
+          </div>
+          <div class="option-card" onclick="select('psu','Corsair RM1000e 1000W 80+ Gold','1000W · 80+ Gold · Fully Modular · ATX3.0',12000,'Corsair')">
+            <div class="opt-brand">Corsair</div>
+            <div class="opt-name">RM1000e 1000W 80+ Gold</div>
+            <div class="opt-spec">1000W · 80+ Gold · Fully Modular</div>
+            <div class="opt-price">₹12,000</div>
+          </div>
+          <div class="option-card" onclick="select('psu','Corsair HX1200 1200W 80+ Platinum','1200W · 80+ Platinum · Fully Modular',18000,'Corsair')">
+            <div class="opt-brand">Corsair</div>
+            <div class="opt-name">HX1200 1200W 80+ Platinum</div>
+            <div class="opt-spec">1200W · 80+ Platinum · High-End Builds</div>
+            <div class="opt-price">₹18,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OS -->
+    <div class="comp-section" id="section-os">
+      <div class="comp-header" onclick="toggleSection('os')">
+        <div class="comp-icon">💻</div>
+        <div class="comp-info">
+          <div class="comp-name">Operating System</div>
+          <div class="comp-selected placeholder" id="sel-os-name">Select OS (optional)</div>
+        </div>
+        <div class="comp-price-tag" id="sel-os-price"></div>
+        <div class="comp-chevron" id="chev-os">▼</div>
+      </div>
+      <div class="comp-options" id="opts-os">
+        <div class="option-grid">
+          <div class="option-card" onclick="select('os','No OS (DIY)','Will install my own OS',0,'')">
+            <div class="opt-brand">DIY</div>
+            <div class="opt-name">No OS</div>
+            <div class="opt-spec">I will install my own operating system</div>
+            <div class="opt-price">₹0</div>
+          </div>
+          <div class="option-card" onclick="select('os','Windows 11 Home','Windows 11 Home · 64-bit · Genuine License',5000,'Microsoft')">
+            <div class="opt-brand">Microsoft</div>
+            <div class="opt-name">Windows 11 Home</div>
+            <div class="opt-spec">Genuine License · 64-bit · Retail</div>
+            <div class="opt-price">₹5,000</div>
+          </div>
+          <div class="option-card" onclick="select('os','Windows 11 Pro','Windows 11 Pro · 64-bit · Genuine License · BitLocker',7500,'Microsoft')">
+            <div class="opt-brand">Microsoft</div>
+            <div class="opt-name">Windows 11 Pro <span class="opt-badge">Recommended</span></div>
+            <div class="opt-spec">Pro License · BitLocker · Remote Desktop</div>
+            <div class="opt-price">₹7,500</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end components panel -->
+
+  <!-- RIGHT — SUMMARY -->
+  <div class="summary-panel">
+    <div class="summary-card">
+
+      <!-- Progress -->
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span>Build Progress</span>
+          <span id="progress-text">0 / 7 components</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Presets -->
+      <div class="presets-bar">
+        <span style="font-size:11px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-right:4px">Quick Load:</span>
+        <button class="preset-btn" onclick="loadPreset('gaming',null)">🎮 Gaming</button>
+        <button class="preset-btn" onclick="loadPreset('trading',null)">📈 Trading</button>
+        <button class="preset-btn" onclick="loadPreset('office',null)">🏢 Office</button>
+        <button class="preset-btn" onclick="loadPreset('workstation',null)">⚡ Workstation</button>
+      </div>
+
+      <!-- Header -->
+      <div class="summary-header">
+        <h3>YOUR BUILD</h3>
+        <div class="summary-use-case" id="summary-use-case">Select components or load a preset</div>
+      </div>
+
+      <!-- Items -->
+      <div class="summary-items" id="summary-items">
+        <div style="text-align:center;padding:20px;color:var(--muted2);font-size:13px">
+          Start selecting components or<br/>load a preset to begin 👆
+        </div>
+      </div>
+
+      <!-- Total -->
+      <div class="summary-total">
+        <div class="total-row">
+          <span class="total-label">Build Total</span>
+          <span class="total-amount" id="total-price">₹0</span>
+        </div>
+        <div class="total-row" style="margin-bottom:4px">
+          <span style="font-size:12px;color:var(--muted2)">Assembly Charges</span>
+          <span style="font-size:12px;color:var(--green);font-weight:700">FREE ✓</span>
+        </div>
+        <div class="total-row" style="margin-bottom:4px">
+          <span style="font-size:12px;color:var(--muted2)">Stress Testing</span>
+          <span style="font-size:12px;color:var(--green);font-weight:700">FREE ✓</span>
+        </div>
+        <div class="total-row" style="margin-bottom:12px">
+          <span style="font-size:12px;color:var(--muted2)">90-Day Warranty</span>
+          <span style="font-size:12px;color:var(--green);font-weight:700">INCLUDED ✓</span>
+        </div>
+
+        <!-- Compat check -->
+        <div class="compat-bar compat-ok" id="compat-bar">
+          <span id="compat-icon">✅</span>
+          <span id="compat-msg">Select components to check compatibility</span>
+        </div>
+        <div class="gst-note">* Prices exclusive of GST · Assembly & 90-day warranty included free</div>
+
+        <!-- CTA Buttons -->
+        <a href="#" class="wa-quote-btn" id="wa-quote-btn" onclick="sendWhatsAppQuote(event)">
+          💬 Get WhatsApp Quote
+        </a>
+        <a href="tel:+918237224346" class="call-btn">📞 Call: 82372 24346</a>
+        <button class="reset-btn" onclick="resetBuild()">🔄 Reset Build</button>
+      </div>
+    </div>
+
+    <!-- Trust badges -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center">
+        <div style="font-size:18px">🛡️</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:4px">Genuine Parts<br/>Only</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center">
+        <div style="font-size:18px">⚡</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:4px">Stress Tested<br/>Before Delivery</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center">
+        <div style="font-size:18px">🏠</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:4px">Doorstep<br/>Delivery Available</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center">
+        <div style="font-size:18px">📞</div>
+        <div style="font-size:10px;color:var(--muted2);margin-top:4px">Expert Help<br/>Baner Store</div>
+      </div>
+    </div>
+  </div>
+</div><!-- end builder-main -->
+
+<!-- FOOTER -->
+<div class="builder-footer">
+  <h3>Need expert advice?</h3>
+  <p>Not sure which components to pick? Our team at Baner store will help you spec the perfect build for your budget and use case.</p>
+  <div class="footer-btns">
+    <a href="https://wa.me/918237224346?text=Hi Cyberflix Baner, I need help with PC build configuration!" class="btn-wa" target="_blank">
+      💬 WhatsApp Our Experts
+    </a>
+    <a href="tel:+918237224346" class="btn-call">📞 82372 24346</a>
+  </div>
+  <p style="margin-top:16px;font-size:12px;color:var(--muted2)">📍 Plot No.163/3B/1, Madhavbaug Society, Balewadi Phata, Baner, Pune 411069 · Open Mon–Sat 10AM–8PM</p>
+</div>
+
+<script>
+// BUILD STATE
+const build = {cpu:null,mb:null,gpu:null,ram:null,storage:null,cooling:null,cabinet:null,psu:null,os:null};
+const cats = ['cpu','mb','gpu','ram','storage','cooling','cabinet','psu','os'];
+const catNames = {cpu:'Processor',mb:'Motherboard',gpu:'Graphics Card',ram:'RAM',storage:'Storage',cooling:'CPU Cooler',cabinet:'Cabinet',psu:'Power Supply',os:'Operating System'};
+let currentUseCase = 'Custom Build';
+
+// TOGGLE SECTION
+function toggleSection(id){
+  const opts = document.getElementById('opts-'+id);
+  const chev = document.getElementById('chev-'+id);
+  const isOpen = opts.classList.contains('open');
+  // close all
+  cats.forEach(c=>{
+    document.getElementById('opts-'+c)?.classList.remove('open');
+    document.getElementById('chev-'+c)?.classList.remove('open');
+  });
+  if(!isOpen){opts.classList.add('open');chev.classList.add('open');}
+}
+
+// SELECT COMPONENT
+function select(cat, name, spec, price, brand){
+  build[cat] = {name, spec, price, brand};
+  // Update header display
+  document.getElementById('sel-'+cat+'-name').textContent = name;
+  document.getElementById('sel-'+cat+'-name').classList.remove('placeholder');
+  document.getElementById('sel-'+cat+'-price').textContent = price > 0 ? '₹'+price.toLocaleString('en-IN') : '';
+  // Mark selected card
+  document.querySelectorAll('#opts-'+cat+' .option-card').forEach(c=>c.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+  // Highlight section
+  document.getElementById('section-'+cat).classList.add('selected');
+  // Update summary
+  updateSummary();
+  // Close section after selection
+  setTimeout(()=>{
+    document.getElementById('opts-'+cat).classList.remove('open');
+    document.getElementById('chev-'+cat).classList.remove('open');
+  },300);
+}
+
+// UPDATE SUMMARY
+function updateSummary(){
+  let total = 0;
+  let count = 0;
+  const items = document.getElementById('summary-items');
+  items.innerHTML = '';
+
+  cats.forEach(cat=>{
+    const b = build[cat];
+    const div = document.createElement('div');
+    div.className = 'summary-item';
+    if(b){
+      total += b.price;
+      count++;
+      div.innerHTML = `<div class="si-left"><div class="si-cat">${catNames[cat]}</div><div class="si-name">${b.name}</div></div><div class="si-price">${b.price>0?'₹'+b.price.toLocaleString('en-IN'):'Free'}</div>`;
+    } else {
+      div.innerHTML = `<div class="si-left"><div class="si-cat">${catNames[cat]}</div><div class="si-name si-empty">Not selected</div></div>`;
+    }
+    items.appendChild(div);
+  });
+
+  // Total
+  document.getElementById('total-price').textContent = '₹'+total.toLocaleString('en-IN');
+
+  // Progress (7 required, os optional)
+  const req = ['cpu','mb','gpu','ram','storage','cooling','cabinet','psu'];
+  const reqCount = req.filter(c=>build[c]).length;
+  document.getElementById('progress-text').textContent = reqCount+' / 8 components';
+  document.getElementById('progress-fill').style.width = (reqCount/8*100)+'%';
+
+  // Compat check
+  checkCompatibility();
+}
+
+// COMPATIBILITY CHECK
+function checkCompatibility(){
+  const bar = document.getElementById('compat-bar');
+  const icon = document.getElementById('compat-icon');
+  const msg = document.getElementById('compat-msg');
+  const req = ['cpu','mb','gpu','ram','storage','cooling','cabinet','psu'];
+  const filled = req.filter(c=>build[c]).length;
+
+  if(filled === 0){
+    bar.className='compat-bar compat-ok';icon.textContent='ℹ️';msg.textContent='Select components to check compatibility';
+    return;
+  }
+
+  // Check DDR4 vs DDR5
+  let warns = [];
+  if(build.mb && build.ram){
+    if(build.mb.spec.includes('DDR5') && build.ram.spec.includes('DDR4')) warns.push('RAM type mismatch — need DDR5');
+    if(build.mb.spec.includes('DDR4') && build.ram.spec.includes('DDR5')) warns.push('RAM type mismatch — need DDR4');
+  }
+
+  // Check socket
+  if(build.cpu && build.mb){
+    const amdCPU = build.cpu.brand === 'AMD';
+    const intelMB = build.mb.spec.includes('LGA1700') || build.mb.spec.includes('LGA1200');
+    const amdMB = build.mb.spec.includes('AM4') || build.mb.spec.includes('AM5');
+    if(amdCPU && intelMB) warns.push('CPU/MB socket mismatch — AMD CPU needs AM4/AM5 board');
+    if(!amdCPU && amdMB) warns.push('CPU/MB socket mismatch — Intel CPU needs LGA1700 board');
+  }
+
+  // PSU adequacy
+  if(build.gpu && build.psu){
+    const gpuPower = build.gpu.price > 80000 ? 400 : build.gpu.price > 50000 ? 300 : build.gpu.price > 30000 ? 200 : 150;
+    const psuW = parseInt(build.psu.name) || 650;
+    if(psuW < gpuPower + 150) warns.push('PSU may be undersized for selected GPU');
+  }
+
+  if(warns.length > 0){
+    bar.className='compat-bar compat-err';icon.textContent='⚠️';msg.textContent=warns[0];
+  } else if(filled >= 8){
+    bar.className='compat-bar compat-ok';icon.textContent='✅';msg.textContent='All components compatible! Ready to build.';
+  } else {
+    bar.className='compat-bar compat-warn';icon.textContent='⚙️';msg.textContent=`${8-filled} more component${8-filled>1?'s':''} needed`;
+  }
+}
+
+// SEND WHATSAPP QUOTE
+function sendWhatsAppQuote(e){
+  e.preventDefault();
+  const req = ['cpu','mb','gpu','ram','storage','cooling','cabinet','psu'];
+  const filled = req.filter(c=>build[c]).length;
+  if(filled < 3){
+    alert('Please select at least 3 components before requesting a quote!');
+    return;
+  }
+  let msg = `🖥️ *Custom PC Build Quote Request*\n\n`;
+  msg += `*Use Case:* ${currentUseCase}\n\n`;
+  msg += `*Components Selected:*\n`;
+  cats.forEach(cat=>{
+    if(build[cat]){
+      msg += `• *${catNames[cat]}:* ${build[cat].name}`;
+      if(build[cat].price > 0) msg += ` — ₹${build[cat].price.toLocaleString('en-IN')}`;
+      msg += `\n`;
+    }
+  });
+  const total = cats.reduce((s,c)=>s+(build[c]?.price||0),0);
+  msg += `\n*Estimated Total:* ₹${total.toLocaleString('en-IN')}\n\n`;
+  msg += `Please confirm availability and final pricing. Thank you!`;
+  window.open('https://wa.me/918237224346?text='+encodeURIComponent(msg),'_blank');
+}
+
+// PRESETS
+const presets = {
+  gaming:{
+    label:'Gaming Build',
+    cpu:['Intel Core i7-14700K','i7-14700K · 20 Core · 5.6GHz',22000,'Intel'],
+    mb:['MSI MAG Z790 Tomahawk WiFi','Z790 · LGA1700 · DDR5 · WiFi 6E · ATX',28000,'MSI'],
+    gpu:['NVIDIA GeForce RTX 5070 12GB','RTX 5070 · 12GB GDDR7 · DLSS 4 · Latest',65000,'NVIDIA'],
+    ram:['Corsair 32GB DDR5 5600MHz','32GB (2×16) DDR5 · 5600MHz · CL36',8500,'Corsair'],
+    storage:['Samsung 1TB 980 Pro NVMe','1TB · PCIe Gen4 · 7000MB/s',7500,'Samsung'],
+    cooling:['DeepCool LM360 AIO 360mm','LM360 · 360mm AIO · ARGB · LCD Display',8500,'DeepCool'],
+    cabinet:['Ant Esports 690 Air ARGB','ATX Mid Tower · Tempered Glass · ARGB · 4 Fans',5500,'Ant Esports'],
+    psu:['Corsair RM750e 750W 80+ Gold','750W · 80+ Gold · Semi-Modular · ATX3.0',7500,'Corsair'],
+    os:['Windows 11 Home','Windows 11 Home · 64-bit · Genuine License',5000,'Microsoft'],
+  },
+  trading:{
+    label:'Trading Build',
+    cpu:['Intel Core i7-14700K','i7-14700K · 20 Core · 5.6GHz',22000,'Intel'],
+    mb:['MSI MAG Z790 Tomahawk WiFi','Z790 · LGA1700 · DDR5 · WiFi 6E · ATX',28000,'MSI'],
+    gpu:['NVIDIA GeForce RTX 4060 8GB','RTX 4060 · 8GB GDDR6 · 1080p/1440p',22000,'NVIDIA'],
+    ram:['Corsair 64GB DDR5 6000MHz','64GB (2×32) DDR5 · 6000MHz · XMP 3.0',16000,'Corsair'],
+    storage:['Samsung 2TB 990 Pro + Seagate 2TB HDD','2TB NVMe + 2TB HDD Combo',18000,'Samsung+Seagate'],
+    cooling:['DeepCool AK620 Dual Tower','AK620 · Dual Tower · 260W TDP',4200,'DeepCool'],
+    cabinet:['Ant Esports 690 Air ARGB','ATX Mid Tower · Tempered Glass · ARGB · 4 Fans',5500,'Ant Esports'],
+    psu:['Corsair RM750e 750W 80+ Gold','750W · 80+ Gold · Semi-Modular · ATX3.0',7500,'Corsair'],
+    os:['Windows 11 Pro','Windows 11 Pro · 64-bit · Genuine License · BitLocker',7500,'Microsoft'],
+  },
+  office:{
+    label:'Office Build',
+    cpu:['Intel Core i5-13400F','i5-13400F · 10 Core · 4.6GHz · No iGPU',8500,'Intel'],
+    mb:['ASUS TUF Gaming B660M-Plus','B660M · LGA1700 · DDR5 · mATX',12000,'ASUS'],
+    gpu:['NVIDIA GeForce RTX 4060 8GB','RTX 4060 · 8GB GDDR6 · 1080p/1440p',22000,'NVIDIA'],
+    ram:['Corsair 16GB DDR4 3200MHz','16GB (2×8) DDR4 · 3200MHz · CL16',3200,'Corsair'],
+    storage:['Samsung 512GB 980 NVMe','512GB · PCIe Gen3 · 3500MB/s',3500,'Samsung'],
+    cooling:['DeepCool AK400 Air Cooler','AK400 · 120mm · 220W TDP · Silent',2200,'DeepCool'],
+    cabinet:['Ant Esports ICE-200TG ARGB','mATX · Tempered Glass · ARGB · 3 Fans',3500,'Ant Esports'],
+    psu:['Corsair CV550 550W 80+ Bronze','550W · 80+ Bronze · ATX · Non-Modular',3500,'Corsair'],
+    os:['Windows 11 Home','Windows 11 Home · 64-bit · Genuine License',5000,'Microsoft'],
+  },
+  workstation:{
+    label:'Workstation Build',
+    cpu:['AMD Ryzen 9 7950X','R9 7950X · 16 Core · 5.7GHz',45000,'AMD'],
+    mb:['ASUS ROG Crosshair X670E Hero','X670E · AM5 · DDR5 · PCIe 5.0 · WiFi 6E',55000,'ASUS'],
+    gpu:['NVIDIA GeForce RTX 4080 Super 16GB','RTX 4080 Super · 16GB GDDR6X · 4K',78000,'NVIDIA'],
+    ram:['Corsair 128GB DDR5 6000MHz','128GB (4×32) DDR5 · 6000MHz',35000,'Corsair'],
+    storage:['Samsung 2TB 990 Pro + Seagate 2TB HDD','2TB NVMe + 2TB HDD Combo',18000,'Samsung+Seagate'],
+    cooling:['ASUS ROG Strix LC 360 ARGB','ROG LC 360 · 360mm AIO · ROG Ecosystem',12000,'ASUS ROG'],
+    cabinet:['Lian Li LANCOOL 216 RGB','ATX Full Tower · Dual Chamber · RGB',12000,'Lian Li'],
+    psu:['Corsair HX1200 1200W 80+ Platinum','1200W · 80+ Platinum · Fully Modular',18000,'Corsair'],
+    os:['Windows 11 Pro','Windows 11 Pro · 64-bit · Genuine License · BitLocker',7500,'Microsoft'],
+  },
+  creator:{
+    label:'Creator Build',
+    cpu:['AMD Ryzen 9 9950X3D','R9 9950X3D · 16 Core · 5.7GHz · AI',65000,'AMD'],
+    mb:['ASUS ROG Crosshair X670E Hero','X670E · AM5 · DDR5 · PCIe 5.0 · WiFi 6E',55000,'ASUS'],
+    gpu:['NVIDIA GeForce RTX 5080 16GB','RTX 5080 · 16GB GDDR7 · 4K 240Hz · DLSS 4',95000,'NVIDIA'],
+    ram:['Corsair 64GB DDR5 6000MHz','64GB (2×32) DDR5 · 6000MHz · XMP 3.0',16000,'Corsair'],
+    storage:['Samsung 2TB 990 Pro + Seagate 2TB HDD','2TB NVMe + 2TB HDD Combo',18000,'Samsung+Seagate'],
+    cooling:['DeepCool LM360 AIO 360mm','LM360 · 360mm AIO · ARGB · LCD Display',8500,'DeepCool'],
+    cabinet:['Lian Li LANCOOL 216 RGB','ATX Full Tower · Dual Chamber · RGB',12000,'Lian Li'],
+    psu:['Corsair RM1000e 1000W 80+ Gold','1000W · 80+ Gold · Fully Modular · ATX3.0',12000,'Corsair'],
+    os:['Windows 11 Pro','Windows 11 Pro · 64-bit · Genuine License · BitLocker',7500,'Microsoft'],
+  },
+  custom:{label:'Custom Build'}
+};
+
+function loadPreset(id, btn){
+  // Update tab UI
+  document.querySelectorAll('.uc-tab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const p = presets[id];
+  if(!p || id==='custom'){
+    currentUseCase='Custom Build';
+    document.getElementById('summary-use-case').textContent='Build your own custom configuration';
+    return;
+  }
+  currentUseCase = p.label;
+  document.getElementById('summary-use-case').textContent = p.label+' — Preset Loaded';
+  cats.forEach(cat=>{
+    if(p[cat]){
+      build[cat]={name:p[cat][0],spec:p[cat][1],price:p[cat][2],brand:p[cat][3]};
+      document.getElementById('sel-'+cat+'-name').textContent=p[cat][0];
+      document.getElementById('sel-'+cat+'-name').classList.remove('placeholder');
+      document.getElementById('sel-'+cat+'-price').textContent=p[cat][2]>0?'₹'+p[cat][2].toLocaleString('en-IN'):'';
+      document.getElementById('section-'+cat).classList.add('selected');
+    }
+  });
+  updateSummary();
+}
+
+// RESET
+function resetBuild(){
+  cats.forEach(cat=>{
+    build[cat]=null;
+    document.getElementById('sel-'+cat+'-name').textContent='Select '+catNames[cat].toLowerCase();
+    document.getElementById('sel-'+cat+'-name').classList.add('placeholder');
+    document.getElementById('sel-'+cat+'-price').textContent='';
+    document.getElementById('section-'+cat).classList.remove('selected');
+    document.querySelectorAll('#opts-'+cat+' .option-card').forEach(c=>c.classList.remove('selected'));
+  });
+  currentUseCase='Custom Build';
+  updateSummary();
+}
+
+// Load gaming preset by default
+loadPreset('gaming', document.querySelector('.uc-tab'));
+</script>
+</body>
+</html>
